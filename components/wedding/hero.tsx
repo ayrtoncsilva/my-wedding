@@ -32,25 +32,6 @@ export function Hero() {
       {/* Overlay terracota para legibilidade e clima */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#2a1a14]/60 via-[#2a1a14]/35 to-[#2a1a14]/75" />
 
-      {/* Detalhe: pequenas fotos em cantos (discretas) */}
-      <div className="absolute right-4 top-[18%] z-[1] hidden w-24 overflow-hidden rounded-sm opacity-80 shadow-lg md:block">
-        <Image
-          src="/images/imagem1.jpeg"
-          alt=""
-          width={96}
-          height={128}
-          className="object-cover aspect-[3/4]"
-        />
-      </div>
-      <div className="absolute bottom-[22%] left-4 z-[1] hidden w-20 overflow-hidden rounded-sm opacity-80 shadow-lg md:block">
-        <Image
-          src="/images/foto2.jpeg"
-          alt=""
-          width={80}
-          height={100}
-          className="object-cover aspect-[4/5]"
-        />
-      </div>
 
       {/* Conteúdo */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6">
