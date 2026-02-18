@@ -6,7 +6,7 @@ type ConfirmacaoInput = {
   name: string
   email: string
   phone?: string
-  attendance: "sim" | "nao"
+  attendance: StatusConfirmacao // usa o enum direto
   dietary?: string
 }
 
@@ -16,19 +16,24 @@ export const confirmacaoService = {
       data: {
         nome: data.name.trim(),
         email: data.email.trim(),
-        telefone: data.phone?.trim() || null,
-        status: data.attendance as StatusConfirmacao,
-        restricoes: data.dietary?.trim() || null,
+        telefone: data.phone?.trim() ?? null,
+        status: data.attendance,
+        restricoes: data.dietary?.trim() ?? null,
       },
     })
 
-    await notificarConfirmacaoPresenca({
-      name: confirmacao.nome,
-      email: confirmacao.email,
-      phone: confirmacao.telefone,
-      attendance: confirmacao.status,
-      dietary: confirmacao.restricoes,
-    })
+    // notificação NÃO deve quebrar a API se falhar
+    try {
+      await notificarConfirmacaoPresenca({
+        name: confirmacao.nome,
+        email: confirmacao.email ?? undefined,
+        phone: confirmacao.telefone ?? undefined,
+        attendance: confirmacao.status,
+        dietary: confirmacao.restricoes ?? undefined,
+      })
+    } catch (err) {
+      console.error("Erro ao notificar confirmação:", err)
+    }
 
     return confirmacao
   },
