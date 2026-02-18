@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Confirmacao {
+  id         String   @id @default(uuid())
+  nome       String
+  email      String?
+  telefone   String?
+  status     StatusConfirmacao
+  restricoes String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("confirmacoes")
+}
+
+enum StatusConfirmacao {
+  sim
+  nao
+}
+
+model Presente {
+  id                 String   @id @default(cuid())
+  guest_name         String
+  present_description String
+  createdAt          DateTime @default(now())
+
+  @@map("presentes")
+}
