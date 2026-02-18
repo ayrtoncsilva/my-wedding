@@ -33,3 +33,11 @@ model Presente {
 
   @@map("presentes")
 }
+
+model Recado {
+  id        String   @id @default(uuid())
+  name      String
+  message   String
+  createdAt DateTime @default(now())
+}
+
