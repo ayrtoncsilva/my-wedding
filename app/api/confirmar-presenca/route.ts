@@ -1,34 +1,32 @@
 import { NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
+import { confirmacaoService } from "@/services/confirmacao.service"
+
+export const runtime = "nodejs"
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
+
     const { name, email, phone, attendance, dietary } = body
 
-    if (!name || !attendance) {
+    if (!name || !attendance || !email) {
       return NextResponse.json(
-        { error: "Nome e confirmação são obrigatórios." },
+        { error: "Nome, e-mail e confirmação são obrigatórios." },
         { status: 400 }
       )
     }
 
-    const attendanceValue = attendance === "sim" ? "sim" : "nao"
-
-    await prisma.confirmacao.create({
-      data: {
-        nome: name.trim(),
-        email: email?.trim() || null,
-        telefone: phone?.trim() || null,
-        status: attendanceValue,
-        restricoes: dietary?.trim() || null,
-      },
+    await confirmacaoService.create({
+      name,
+      email,
+      phone,
+      attendance,
+      dietary,
     })
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Erro ao salvar no banco:", error)
-
+    console.error(error)
     return NextResponse.json(
       { error: "Erro interno do servidor" },
       { status: 500 }

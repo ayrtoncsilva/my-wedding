@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma"
-import { randomUUID } from "crypto"
 
 export type PresenteCreateInput = {
   guest_name: string
@@ -8,14 +7,11 @@ export type PresenteCreateInput = {
 
 export const presenteService = {
   async create(data: PresenteCreateInput) {
-    const id = randomUUID()
-    await prisma.presente.create({
+    return prisma.presente.create({
       data: {
-        id,
-        guestName: data.guest_name.trim(),
-        presentDescription: data.present_description.trim(),
+        guest_name: data.guest_name.trim(),
+        present_description: data.present_description.trim(),
       },
     })
-    return { id }
   },
 }

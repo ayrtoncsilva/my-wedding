@@ -19,7 +19,7 @@ export default function WeddingPage() {
       <DamasPajens />
       <PaisNoivos />
       <SugestaoPresentes />
-      {/* <Recados /> */}
+      <Recados />
       <ConfirmarPresenca />
       <Footer />
     </main>
