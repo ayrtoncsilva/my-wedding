@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")     // pooling transaction mode (Supavisor 6543) para runtime Vercel/serverless
-  directUrl = env("DIRECT_URL")       // conexão direta (porta 5432) para migrations / prisma studio / db pull
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Confirmacao {
@@ -17,12 +17,8 @@ model Confirmacao {
   restricoes String?
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
-  @@map("confirmacoes")
-}
 
-enum StatusConfirmacao {
-  sim
-  nao
+  @@map("confirmacoes")
 }
 
 model Presente {
@@ -30,9 +26,9 @@ model Presente {
   guest_name          String
   present_description String
   createdAt           DateTime @default(now())
+
   @@map("presentes")
 }
-
 
 model Recado {
   id        String   @id @default(uuid())
@@ -41,4 +37,10 @@ model Recado {
   createdAt DateTime @default(now())
 
   @@map("recados")
+}
+
+
+enum StatusConfirmacao {
+  sim
+  nao
 }

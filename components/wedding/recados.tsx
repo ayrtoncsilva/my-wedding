@@ -23,11 +23,31 @@ export function Recados() {
   }, [])
 
   async function fetchRecados() {
-    const res = await fetch("/api/recados")
-    const data = await res.json()
-    setRecados(data)
-    setLoading(false)
+    try {
+      const res = await fetch("/api/recados")
+  
+      if (!res.ok) {
+        console.error("Erro ao buscar recados:", res.status)
+        setRecados([])
+        return
+      }
+  
+      const data = await res.json()
+  
+      if (Array.isArray(data)) {
+        setRecados(data)
+      } else {
+        console.error("Resposta inesperada da API:", data)
+        setRecados([])
+      }
+    } catch (err) {
+      console.error("Erro de rede:", err)
+      setRecados([])
+    } finally {
+      setLoading(false)
+    }
   }
+  
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
