@@ -40,5 +40,5 @@ model Recado {
   message   String
   createdAt DateTime @default(now())
 
-  @@map("Recado")
+  @@map("recados")
 }
