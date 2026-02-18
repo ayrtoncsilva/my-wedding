@@ -24,7 +24,9 @@ export function Recados() {
 
   async function fetchRecados() {
     try {
-      const res = await fetch("/api/recados")
+      const res = await fetch("/api/recados", {
+        cache: "no-store",
+      })
   
       if (!res.ok) {
         console.error("Erro ao buscar recados:", res.status)
@@ -37,7 +39,7 @@ export function Recados() {
       if (Array.isArray(data)) {
         setRecados(data)
       } else {
-        console.error("Resposta inesperada da API:", data)
+        console.error("Resposta inesperada:", data)
         setRecados([])
       }
     } catch (err) {
@@ -47,6 +49,7 @@ export function Recados() {
       setLoading(false)
     }
   }
+  
   
 
   async function handleSubmit(e: React.FormEvent) {
