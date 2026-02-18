@@ -50,8 +50,6 @@ export function Recados() {
     }
   }
   
-  
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim() || !message.trim()) return
