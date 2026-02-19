@@ -22,7 +22,7 @@ const JA_TEMOS = [
   "Panelas",
   "Talheres",
   "Jogo de pratos",
-  "Air fryer"
+  "Air fryer",
 ] as const
 
 const SUGESTOES: Record<string, string[]> = {
@@ -61,7 +61,6 @@ const SUGESTOES: Record<string, string[]> = {
     "Rack para TV",
     "Cortinas",
     "Tapete",
-    "Outros",
     "Vasos de plantas",
     "Luminárias",
     "Lâmpadas",
@@ -141,16 +140,19 @@ export function SugestaoPresentes() {
             </DialogHeader>
 
             {sent ? (
-              <div className="text-center py-6">
+              <div className="py-6 text-center">
                 <Check className="mx-auto h-8 w-8 text-green-600" />
                 <p className="mt-2 text-sm font-medium">
                   Enviado com sucesso!
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleEnviarPresente} className="flex flex-col gap-3">
+              <form
+                onSubmit={handleEnviarPresente}
+                className="flex flex-col gap-3"
+              >
                 {error && (
-                  <p className="text-red-600 text-sm">{error}</p>
+                  <p className="text-sm text-red-600">{error}</p>
                 )}
 
                 <input
@@ -158,7 +160,7 @@ export function SugestaoPresentes() {
                   placeholder="Seu nome"
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
-                  className="border px-4 py-2.5 rounded-md text-sm"
+                  className="rounded-md border px-4 py-2.5 text-sm"
                   required
                 />
 
@@ -166,7 +168,7 @@ export function SugestaoPresentes() {
                   placeholder="O que você vai presentear?"
                   value={presentDescription}
                   onChange={(e) => setPresentDescription(e.target.value)}
-                  className="border px-4 py-2.5 rounded-md text-sm"
+                  className="rounded-md border px-4 py-2.5 text-sm"
                   rows={3}
                   required
                 />
@@ -174,7 +176,7 @@ export function SugestaoPresentes() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-[#b85c38] text-white py-2.5 rounded-md text-xs uppercase tracking-[0.18em] transition-all hover:opacity-90 disabled:opacity-60"
+                  className="rounded-md bg-[#b85c38] py-2.5 text-xs uppercase tracking-[0.18em] text-white transition-all hover:opacity-90 disabled:opacity-60"
                 >
                   {loading ? "Enviando..." : "Enviar"}
                 </button>
@@ -184,11 +186,34 @@ export function SugestaoPresentes() {
         </Dialog>
       </div>
 
-      {/* Lista */}
+      {/* Já temos */}
+      <div className="mx-auto mb-12 max-w-3xl space-y-4">
+        <div className="flex items-center gap-2">
+          <Check className="h-4 w-4 text-[#b85c38]" />
+          <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2a1a14]">
+            O que ja ganhamos:
+          </h3>
+        </div>
+
+        <ul className="grid gap-2 sm:grid-cols-2">
+          {JA_TEMOS.map((item) => (
+            <li
+              key={item}
+              className="flex items-center gap-2 rounded-md border border-[#e6ded7] bg-[#f7f3ef] px-4 py-2 text-sm text-[#2a1a14]"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#b85c38]" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+
+      {/* Lista de sugestões */}
       <div className="mx-auto max-w-3xl space-y-6">
         {Object.entries(SUGESTOES).map(([categoria, itens]) => (
           <div key={categoria} className="space-y-3">
-            <h3 className="font-semibold text-base text-[#2a1a14]">
+            <h3 className="text-base font-semibold text-[#2a1a14]">
               {categoria}
             </h3>
 

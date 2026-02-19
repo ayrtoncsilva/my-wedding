@@ -1,35 +1,43 @@
+import Image from "next/image"
 import { SectionHeader } from "./section-header"
 
 type Person = {
   name: string
   role: "Padrinho" | "Madrinha"
+  image: string
 }
 
 const PADRINHOS: Person[] = [
-  { name: "Denilson Silvestre", role: "Padrinho" },
-  { name: "Rychard Fernandes", role: "Padrinho" },
-  { name: "Luiz Vaz", role: "Padrinho" },
-  { name: "Jenilson Silva", role: "Padrinho" },
-  { name: "Hudson Magalhães", role: "Padrinho" },
+  { name: "Denilson Silvestre", role: "Padrinho", image: "/images/denilson.png" },
+  { name: "Rychard Fernandes", role: "Padrinho", image: "/images/rychard.png" },
+  { name: "Luiz Vaz", role: "Padrinho", image: "/images/luiz.png" },
+  { name: "Jenilson Silva", role: "Padrinho", image: "/images/jenilson.png" },
+  { name: "Hudson Magalhães", role: "Padrinho", image: "/images/hudson.png" },
+  { name: "Rodrigo Antunes", role: "Padrinho", image: "/images/rodrigo.jpeg" },
 ]
 
 const MADRINHAS: Person[] = [
-  { name: "Sarah Salenio", role: "Madrinha" },
-  { name: "Samyra Salenio", role: "Madrinha" },
-  { name: "Priscila Machado", role: "Madrinha" },
-  { name: "Heloisa Sanches", role: "Madrinha" },
-  { name: "Ariadne Sanches", role: "Madrinha" },
+  { name: "Sarah Salenio", role: "Madrinha", image: "/images/sarah.jpeg" },
+  { name: "Samyra Salenio", role: "Madrinha", image: "/images/samyra.jpeg" },
+  { name: "Priscila Machado", role: "Madrinha", image: "/images/priscila.jpeg" },
+  { name: "Heloisa Sanches", role: "Madrinha", image: "/images/heloisa.jpeg" },
+  { name: "Ariadne Sanches", role: "Madrinha", image: "/images/ariadne.jpeg" },
+  { name: "Layane", role: "Madrinha", image: "/images/layane.png" },
 ]
 
 function PersonCard({ person }: { person: Person }) {
   return (
     <div className="group flex min-w-[200px] flex-1 flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl md:min-w-[240px]">
-      
-      {/* Bolinha com nome */}
-      <div className="mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-primary/10 p-4 ring-4 ring-primary/20 transition-all duration-300 group-hover:ring-primary/50">
-        <span className="font-serif text-sm font-semibold leading-tight text-primary text-center">
-          {person.name}
-        </span>
+
+      {/* Foto */}
+      <div className="mb-5 h-28 w-28 overflow-hidden rounded-full ring-4 ring-primary/20 transition-all duration-300 group-hover:ring-primary/50">
+        <Image
+          src={person.image}
+          alt={person.name}
+          width={112}
+          height={112}
+          className="h-full w-full object-cover"
+        />
       </div>
 
       <p className="font-serif text-xl font-medium text-foreground transition-colors group-hover:text-primary">
@@ -53,7 +61,7 @@ export function Padrinhos() {
       />
 
       <div className="mx-auto mt-16 max-w-6xl space-y-16">
-        
+
         {/* PADRINHOS */}
         <div>
           <p className="mb-8 text-center text-sm font-semibold uppercase tracking-[0.4em] text-primary">
@@ -81,6 +89,14 @@ export function Padrinhos() {
             ))}
           </div>
         </div>
+
+        <p className="mx-auto mt-8 max-w-3xl text-center font-serif text-lg leading-relaxed text-muted-foreground">
+          “O amigo ama em todos os momentos; é um irmão na adversidade.”
+          <span className="mt-2 block text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+            Provérbios 17:17
+          </span>
+        </p>
+
 
       </div>
     </section>

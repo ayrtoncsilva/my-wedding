@@ -32,7 +32,7 @@ export function NossaHistoria() {
               um de voces para tornar este momento ainda mais inesquecivel.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-            “Assim, eles já não são dois, mas sim uma só carne. Portanto, o que Deus uniu, ninguém o separe.” - Mateus 19:6
+            “Assim, eles já não são dois, mas sim uma só carne. Portanto, o que Deus uniu, ninguém irar separar.” - Mateus 19:6
             </p>
             <div className="mt-8 flex items-center gap-4">
               <span className="h-px w-8 bg-border" />
