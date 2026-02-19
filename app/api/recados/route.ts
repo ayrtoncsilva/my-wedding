@@ -1,20 +1,22 @@
-export const dynamic = "force-dynamic"
-export const runtime = "nodejs"
-
 import { prisma } from "@/lib/prisma"
 import { NextResponse } from "next/server"
+
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
 
 export async function GET() {
   try {
     const recados = await prisma.recado.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: { createdAt: "desc" },
     })
 
     return NextResponse.json(recados)
   } catch (error) {
-    return NextResponse.json({ error: "Erro ao buscar recados" }, { status: 500 })
+    console.error("Erro ao buscar recados:", error)
+    return NextResponse.json(
+      { error: "Erro ao buscar recados" },
+      { status: 500 }
+    )
   }
 }
 
@@ -31,13 +33,17 @@ export async function POST(req: Request) {
 
     const recado = await prisma.recado.create({
       data: {
-        name: body.name,
-        message: body.message,
+        name: body.name.trim(),
+        message: body.message.trim(),
       },
     })
 
     return NextResponse.json(recado)
   } catch (error) {
-    return NextResponse.json({ error: "Erro ao salvar recado" }, { status: 500 })
+    console.error("Erro ao salvar recado:", error)
+    return NextResponse.json(
+      { error: "Erro ao salvar recado" },
+      { status: 500 }
+    )
   }
 }

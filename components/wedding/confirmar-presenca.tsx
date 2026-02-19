@@ -64,10 +64,9 @@ export function ConfirmarPresenca() {
           name: formData.name,
           email: formData.email || null,
           phone: formData.phone.replace(/\D/g, "") || null,
-          guests: formData.guests,
           attendance: formData.attendance,
           dietary: formData.dietary || null,
-        }),
+        }),        
       })
 
       const data = await res.json().catch(() => ({}))

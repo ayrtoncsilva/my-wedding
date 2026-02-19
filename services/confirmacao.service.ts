@@ -4,9 +4,9 @@ import { StatusConfirmacao } from "@prisma/client"
 
 type ConfirmacaoInput = {
   name: string
-  email: string
+  email?: string
   phone?: string
-  attendance: StatusConfirmacao // usa o enum direto
+  attendance: StatusConfirmacao
   dietary?: string
 }
 
@@ -15,14 +15,14 @@ export const confirmacaoService = {
     const confirmacao = await prisma.confirmacao.create({
       data: {
         nome: data.name.trim(),
-        email: data.email.trim(),
+        email: data.email?.trim() ?? null,
         telefone: data.phone?.trim() ?? null,
         status: data.attendance,
         restricoes: data.dietary?.trim() ?? null,
       },
     })
 
-    // notificação NÃO deve quebrar a API se falhar
+    // ⚠️ notificação NÃO pode quebrar a API
     try {
       await notificarConfirmacaoPresenca({
         name: confirmacao.nome,
