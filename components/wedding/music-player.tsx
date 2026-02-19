@@ -13,27 +13,31 @@ const playlist = [
   "/audio/09.mp3",
 ]
 
+function isMobileDevice() {
+  if (typeof navigator === "undefined") return false
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+}
+
 export function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [trackIndex, setTrackIndex] = useState(0)
   const [started, setStarted] = useState(false)
   const [playing, setPlaying] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
-  // autoplay mutado (permitido)
+  // detecta mobile
   useEffect(() => {
+    setIsMobile(isMobileDevice())
+  }, [])
+
+  // DESKTOP: inicia na primeira interação global
+  useEffect(() => {
+    if (isMobile) return
     if (!audioRef.current) return
-    audioRef.current.volume = 0.25
-    audioRef.current.muted = true
-    audioRef.current.play().catch(() => {})
-  }, [trackIndex])
 
-  // PRIMEIRA interação global (igual ao código que funcionava)
-  useEffect(() => {
-    function unlockOnFirstInteraction() {
-      if (!audioRef.current || started) return
-
-      audioRef.current.muted = false
-      audioRef.current
+    function unlockDesktopAudio() {
+      audioRef.current!.volume = 0.25
+      audioRef.current!
         .play()
         .then(() => {
           setStarted(true)
@@ -41,17 +45,35 @@ export function MusicPlayer() {
         })
         .catch(() => {})
 
-      window.removeEventListener("pointerdown", unlockOnFirstInteraction)
+      window.removeEventListener("pointerdown", unlockDesktopAudio)
+      window.removeEventListener("scroll", unlockDesktopAudio)
     }
 
-    window.addEventListener("pointerdown", unlockOnFirstInteraction)
+    window.addEventListener("pointerdown", unlockDesktopAudio)
+    window.addEventListener("scroll", unlockDesktopAudio)
 
-    return () =>
-      window.removeEventListener("pointerdown", unlockOnFirstInteraction)
-  }, [started])
+    return () => {
+      window.removeEventListener("pointerdown", unlockDesktopAudio)
+      window.removeEventListener("scroll", unlockDesktopAudio)
+    }
+  }, [isMobile])
 
-  function togglePlay() {
-    if (!audioRef.current || !started) return
+  // MOBILE: botão inicia
+  function handleButtonClick() {
+    if (!audioRef.current) return
+
+    audioRef.current.volume = 0.25
+
+    if (!started) {
+      audioRef.current
+        .play()
+        .then(() => {
+          setStarted(true)
+          setPlaying(true)
+        })
+        .catch(() => {})
+      return
+    }
 
     if (playing) {
       audioRef.current.pause()
@@ -75,9 +97,9 @@ export function MusicPlayer() {
         preload="auto"
       />
 
-      {/* BOTÃO DISCRETO */}
+      {/* BOTÃO — aparece SEMPRE, mas só é obrigatório no mobile */}
       <button
-        onClick={togglePlay}
+        onClick={handleButtonClick}
         aria-label="Controle de música"
         className="
           fixed bottom-6 right-6

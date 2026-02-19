@@ -21,7 +21,7 @@ const MADRINHAS: Person[] = [
   { name: "Samyra Salenio", role: "Madrinha", image: "/images/samyra.jpeg" },
   { name: "Priscila Machado", role: "Madrinha", image: "/images/priscila.jpeg" },
   { name: "Heloisa Sanches", role: "Madrinha", image: "/images/heloisa.jpeg" },
-  { name: "Ariadne Sanches", role: "Madrinha", image: "/images/ariadne.jpeg" },
+  { name: "Ariadne Barreto", role: "Madrinha", image: "/images/ariadne.jpeg" },
   { name: "Layane", role: "Madrinha", image: "/images/layane.jpeg" },
 ]
 
