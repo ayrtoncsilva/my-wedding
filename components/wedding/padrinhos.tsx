@@ -22,7 +22,7 @@ const MADRINHAS: Person[] = [
   { name: "Priscila Machado", role: "Madrinha", image: "/images/priscila.jpeg" },
   { name: "Heloisa Sanches", role: "Madrinha", image: "/images/heloisa.jpeg" },
   { name: "Ariadne Sanches", role: "Madrinha", image: "/images/ariadne.jpeg" },
-  { name: "Layane", role: "Madrinha", image: "/images/layane.png" },
+  { name: "Layane", role: "Madrinha", image: "/images/layane.jpeg" },
 ]
 
 function PersonCard({ person }: { person: Person }) {
