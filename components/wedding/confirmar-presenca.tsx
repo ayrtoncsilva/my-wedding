@@ -8,7 +8,6 @@ export function ConfirmarPresenca() {
     name: "",
     email: "",
     phone: "",
-    guests: "1",
     attendance: "",
     dietary: "",
   })
@@ -32,7 +31,7 @@ export function ConfirmarPresenca() {
   }
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     const { name, value } = e.target
 
@@ -66,7 +65,7 @@ export function ConfirmarPresenca() {
           phone: formData.phone.replace(/\D/g, "") || null,
           attendance: formData.attendance,
           dietary: formData.dietary || null,
-        }),        
+        }),
       })
 
       const data = await res.json().catch(() => ({}))
@@ -88,7 +87,6 @@ export function ConfirmarPresenca() {
     return (
       <section id="presenca" className="bg-secondary px-6 py-28 md:py-36">
         <div className="mx-auto flex max-w-lg flex-col items-center text-center">
-
           <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 ring-4 ring-primary/10">
             <svg
               className="h-12 w-12 text-primary"
@@ -121,8 +119,6 @@ export function ConfirmarPresenca() {
 
   return (
     <section id="presenca" className="relative bg-secondary px-6 py-28 md:py-36">
-
-      {/* Fundo decorativo sutil */}
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
@@ -137,7 +133,7 @@ export function ConfirmarPresenca() {
         <SectionHeader
           subtitle="Confirme sua Presença"
           title="Estaremos Esperando Você"
-          description="Por favor, confirme sua presença até 29 de julho de 2026."
+          description="Por favor, confirme sua presença até 01 de Junho de 2026."
         />
 
         {error && (
@@ -168,53 +164,69 @@ export function ConfirmarPresenca() {
 
           {/* Email + Telefone */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="rounded-xl border border-border bg-card px-4 py-3.5 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-              placeholder="seu@email.com"
-            />
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+                Email
+              </label>
+              <input
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="rounded-xl border border-border bg-card px-4 py-3.5 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                placeholder="seu@email.com"
+              />
+            </div>
 
-            <input
-              name="phone"
-              type="tel"
-              inputMode="numeric"
-              maxLength={15}
-              value={formData.phone}
-              onChange={handleChange}
-              className="rounded-xl border border-border bg-card px-4 py-3.5 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-              placeholder="(99) 99999-9999"
-            />
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+                Telefone
+              </label>
+              <input
+                name="phone"
+                type="tel"
+                inputMode="numeric"
+                maxLength={15}
+                value={formData.phone}
+                onChange={handleChange}
+                className="rounded-xl border border-border bg-card px-4 py-3.5 text-sm transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
+                placeholder="(99) 99999-9999"
+              />
+            </div>
           </div>
 
-          {/* Radios elegantes */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {[
-              { label: "Sim, estarei presente", value: "sim" },
-              { label: "Não poderei comparecer", value: "nao" },
-            ].map((option) => (
-              <label
-                key={option.value}
-                className={`group flex cursor-pointer items-center justify-center rounded-xl border px-6 py-4 text-sm font-medium transition-all
-                  ${
-                    formData.attendance === option.value
-                      ? "border-primary bg-primary/10"
-                      : "border-border bg-card hover:border-primary/40"
-                  }`}
-              >
-                <input
-                  type="radio"
-                  name="attendance"
-                  value={option.value}
-                  checked={formData.attendance === option.value}
-                  onChange={handleChange}
-                  className="sr-only"
-                />
-                {option.label}
-              </label>
-            ))}
+          {/* Confirmação */}
+          <div className="flex flex-col gap-4">
+            <label className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+              Confirmação *
+            </label>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {[
+                { label: "Sim, estarei presente", value: "sim" },
+                { label: "Não poderei comparecer", value: "nao" },
+              ].map((option) => (
+                <label
+                  key={option.value}
+                  className={`cursor-pointer rounded-xl border px-6 py-4 text-sm font-medium text-center transition-all
+                    ${
+                      formData.attendance === option.value
+                        ? "border-primary bg-primary/10"
+                        : "border-border bg-card hover:border-primary/40"
+                    }`}
+                >
+                  <input
+                    type="radio"
+                    name="attendance"
+                    value={option.value}
+                    checked={formData.attendance === option.value}
+                    onChange={handleChange}
+                    className="sr-only"
+                  />
+                  {option.label}
+                </label>
+              ))}
+            </div>
           </div>
 
           <button

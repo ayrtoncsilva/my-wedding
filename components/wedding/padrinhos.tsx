@@ -1,50 +1,35 @@
-import Image from "next/image"
 import { SectionHeader } from "./section-header"
 
 type Person = {
   name: string
   role: "Padrinho" | "Madrinha"
-  image?: string
 }
 
 const PADRINHOS: Person[] = [
-  { name: "Denilson Silvestre", role: "Padrinho", image: "/images/denilson.png" },
-  { name: "Rychard Fernandes", role: "Padrinho", image: "/images/rychard.png" },
-  { name: "Luiz Vaz", role: "Padrinho", image: "/images/luiz.png" },
-  { name: "Jenilson Silva", role: "Padrinho", image: "/images/jenilson.png" },
-  { name: "Hudson Magalhães", role: "Padrinho", image: "/images/hudson.png" },
+  { name: "Denilson Silvestre", role: "Padrinho" },
+  { name: "Rychard Fernandes", role: "Padrinho" },
+  { name: "Luiz Vaz", role: "Padrinho" },
+  { name: "Jenilson Silva", role: "Padrinho" },
+  { name: "Hudson Magalhães", role: "Padrinho" },
 ]
 
 const MADRINHAS: Person[] = [
-  { name: "Sarah Salenio", role: "Madrinha", image: "/images/sarah.png" },
-  { name: "Samyra Salenio", role: "Madrinha", image: "/images/samyra.png" },
-  { name: "Priscila Machado", role: "Madrinha", image: "/images/priscila.png" },
-  { name: "Heloisa Sanches", role: "Madrinha", image: "/images/heloise.png" },
-  { name: "Ariadne Sanches", role: "Madrinha", image: "/images/ariadne.png" },
+  { name: "Sarah Salenio", role: "Madrinha" },
+  { name: "Samyra Salenio", role: "Madrinha" },
+  { name: "Priscila Machado", role: "Madrinha" },
+  { name: "Heloisa Sanches", role: "Madrinha" },
+  { name: "Ariadne Sanches", role: "Madrinha" },
 ]
-
 
 function PersonCard({ person }: { person: Person }) {
   return (
     <div className="group flex min-w-[200px] flex-1 flex-col items-center rounded-2xl border border-border bg-card p-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl md:min-w-[240px]">
       
-      {/* Círculo com foto */}
-      <div className="relative mb-5 h-28 w-28 overflow-hidden rounded-full ring-4 ring-primary/20 transition-all duration-300 group-hover:ring-primary/50">
-        
-        {person.image ? (
-          <Image
-            src={person.image}
-            alt={person.name}
-            fill
-            className="object-cover"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-primary/15">
-            <span className="font-serif text-4xl font-semibold text-primary">
-              {person.name.charAt(0)}
-            </span>
-          </div>
-        )}
+      {/* Bolinha com nome */}
+      <div className="mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-primary/10 p-4 ring-4 ring-primary/20 transition-all duration-300 group-hover:ring-primary/50">
+        <span className="font-serif text-sm font-semibold leading-tight text-primary text-center">
+          {person.name}
+        </span>
       </div>
 
       <p className="font-serif text-xl font-medium text-foreground transition-colors group-hover:text-primary">
