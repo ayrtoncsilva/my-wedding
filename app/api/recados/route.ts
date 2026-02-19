@@ -12,7 +12,7 @@ export async function GET() {
 
     return NextResponse.json(recados)
   } catch (error) {
-    console.error("Erro ao buscar recados:", error)
+    console.error(error)
     return NextResponse.json(
       { error: "Erro ao buscar recados" },
       { status: 500 }
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(recado)
   } catch (error) {
-    console.error("Erro ao salvar recado:", error)
+    console.error(error)
     return NextResponse.json(
       { error: "Erro ao salvar recado" },
       { status: 500 }
